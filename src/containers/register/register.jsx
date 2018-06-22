@@ -2,6 +2,7 @@
 * 用户注册的路由组件
 * */
 import React,{Component} from 'react';
+import {connect} from 'react-redux'
 //引入组件
 import {NavBar,WingBlank,WhiteSpace,InputItem,List,Radio,Button} from 'antd-mobile';
 //引入一个logo组件
@@ -21,7 +22,8 @@ export default class Register extends Component{
 
     }
     regsiter=()=>{
-       console.log(this.state)
+       console.log(this.props)
+        this.props.register(this.state)
     };
     goLogin=()=>{
         console.log(this.props)
@@ -57,3 +59,7 @@ export default class Register extends Component{
         )
     }
 }
+export default connect(
+    state=>({user: state.user}),
+    {register}
+)(Register)
