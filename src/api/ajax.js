@@ -17,6 +17,6 @@ export default function ajax(url='',data='',type='GET') {
     //    发送get请求
         return axios.get(url);
     }else {
-return axios.post(url,data)//data包含请求体数据的对象
+      return axios.post(url,data)//data包含请求体数据的对象
     }
 }

@@ -2,13 +2,19 @@
 * 用户注册的路由组件
 * */
 import React,{Component} from 'react';
-import {connect} from 'react-redux'
+
+
 //引入组件
 import {NavBar,WingBlank,WhiteSpace,InputItem,List,Radio,Button} from 'antd-mobile';
 //引入一个logo组件
+import {Redirect} from 'react-router-dom'
+import {connect} from 'react-redux'
 import Logo from '../../components/logo/logo';
+import {register} from '../../redux/actions'
+//
 const ListItem=List.Item;
-export default class Register extends Component{
+
+ class Register extends Component{
     state={
         username:"",
         password:"",
@@ -21,21 +27,26 @@ export default class Register extends Component{
         })
 
     }
-    regsiter=()=>{
-       console.log(this.props)
+    register=()=>{
         this.props.register(this.state)
     };
     goLogin=()=>{
-        console.log(this.props)
      this.props.history.replace('/login')
     }
     render(){
         const {type}=this.state;
+        const {redirectTo, msg} = this.props.user;
+        /*console.log(msg)
+        console.log(redirectTo)*/
+        if (redirectTo) {
+            return <Redirect to={redirectTo}/>
+        }
         return (
             <div>
                 <NavBar>硅谷直聘</NavBar>
                 <Logo/>
                 <WingBlank>
+                    {msg?<p className='error-msg'>{msg}</p>:null}
                     <List>
                         <WhiteSpace/>
                         <InputItem placeholder='请输入用户名' onChange={val=>{this.changeHander('username',val)}}>用户名：</InputItem>
@@ -51,7 +62,7 @@ export default class Register extends Component{
                         </ListItem>
                     </List>
                     <WhiteSpace/>
-                    <Button type='primary' onClick={this.regsiter}>注&nbsp;&nbsp;册</Button>
+                    <Button type='primary' onClick={this.register}>注&nbsp;&nbsp;册</Button>
                     <WhiteSpace/>
                     <Button onClick={this.goLogin}>已有账户登录</Button>
                 </WingBlank>
@@ -59,7 +70,8 @@ export default class Register extends Component{
         )
     }
 }
+
 export default connect(
-    state=>({user: state.user}),
+    state => ({user: state.user}),
     {register}
 )(Register)

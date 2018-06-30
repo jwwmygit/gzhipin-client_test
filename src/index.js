@@ -9,9 +9,12 @@ import {Provider} from 'react-redux';
 import {HashRouter,Switch,Route} from 'react-router-dom'
 //引入store对象
 import store from './redux/store'
+import './assets/css/index.less'
+// import './test/socketio_test'
 import Login from './containers/login/login'
 import Main from './containers/main/main'
 import Register from './containers/register/register'
+
 //
 ReactDOM.render(
     //路由映射
